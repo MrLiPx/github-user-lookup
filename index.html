@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Analytics Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Using Flaticon UIcons Regular Rounded as requested -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        .glass-card {
+            background: rgba(22, 27, 34, 0.7);
+            border: 1px solid #30363d;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Skeleton Loading Animation */
+        .skeleton {
+            background: linear-gradient(90deg, #161b22 25%, #21262d 50%, #161b22 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite linear;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: #58a6ff;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #58a6ff;
+        }
+
+        .achievement-badge {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
+        }
+
+        .repo-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Search Navbar -->
+    <nav class="sticky top-0 z-40 glass-card border-x-0 border-t-0 py-4 px-6 mb-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fi fi-rr-chart-connected text-blue-500 text-2xl"></i>
+                <h1 class="text-xl font-bold text-white tracking-tight">GitAnalytics Pro</h1>
+            </div>
+            <div class="relative w-full md:w-96">
+                <i class="fi fi-rr-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                <input 
+                    type="text" 
+                    id="usernameInput" 
+                    placeholder="Search GitHub username..." 
+                    class="w-full pl-11 pr-4 py-2.5 rounded-full bg-[#0d1117] border border-[#30363d] focus:outline-none focus:border-blue-500 text-sm transition-all"
+                    onkeypress="if(event.key === 'Enter') fetchProfile()"
+                >
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4">
+        
+        <!-- Skeleton Loader (Visual Loading Boxes) -->
+        <div id="loadingUI" class="hidden space-y-8">
+            <div class="glass-card rounded-3xl p-8 flex flex-col md:flex-row gap-8">
+                <div class="w-32 h-32 rounded-3xl skeleton flex-shrink-0"></div>
+                <div class="flex-1 space-y-4">
+                    <div class="h-8 w-48 skeleton rounded-lg"></div>
+                    <div class="h-4 w-full skeleton rounded-lg"></div>
+                    <div class="h-4 w-2/3 skeleton rounded-lg"></div>
+                    <div class="flex gap-4 pt-2">
+                        <div class="h-12 w-24 skeleton rounded-xl"></div>
+                        <div class="h-12 w-24 skeleton rounded-xl"></div>
+                        <div class="h-12 w-24 skeleton rounded-xl"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="h-32 glass-card rounded-2xl skeleton"></div>
+                <div class="h-32 glass-card rounded-2xl skeleton"></div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <main id="profileContent" class="hidden space-y-8">
+            
+            <!-- User Header Card -->
+            <section class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden">
+                <div class="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
+                    <img id="avatar" src="" class="w-36 h-36 rounded-3xl border-4 border-[#30363d] shadow-2xl object-cover">
+                    
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="flex flex-col md:flex-row md:items-center gap-4 mb-2">
+                            <h2 id="fullName" class="text-3xl font-bold text-white"></h2>
+                            <div id="achievementsList" class="flex flex-wrap justify-center md:justify-start gap-2">
+                                <!-- Achievement badges go here -->
+                            </div>
+                        </div>
+                        <p id="usernameDisplay" class="text-blue-400 font-medium mb-4 flex items-center justify-center md:justify-start gap-2">
+                            <i class="fi fi-rr-at"></i><span id="loginId"></span>
+                        </p>
+                        
+                        <p id="bioText" class="text-gray-400 mb-6 max-w-2xl leading-relaxed text-sm md:text-base"></p>
+
+                        <!-- High Level Stats -->
+                        <div class="flex flex-wrap gap-3 mb-8 justify-center md:justify-start">
+                            <div class="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-2xl text-center min-w-[100px]">
+                                <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-widest">Followers</span>
+                                <span id="statFollowers" class="text-lg font-bold text-white">0</span>
+                            </div>
+                            <div class="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-2xl text-center min-w-[100px]">
+                                <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-widest">Following</span>
+                                <span id="statFollowing" class="text-lg font-bold text-white">0</span>
+                            </div>
+                            <div class="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-2xl text-center min-w-[100px]">
+                                <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-widest">Total Stars</span>
+                                <span id="statStars" class="text-lg font-bold text-white">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Personal Links -->
+                        <div class="flex flex-wrap gap-5 text-sm text-gray-400 justify-center md:justify-start border-t border-[#30363d] pt-6">
+                            <span id="locBox" class="flex items-center gap-2"><i class="fi fi-rr-marker"></i> <span id="valLocation"></span></span>
+                            <span id="linkBox" class="flex items-center gap-2"><i class="fi fi-rr-link"></i> <a id="valBlog" target="_blank" class="hover:text-blue-400 transition-colors"></a></span>
+                            <span id="compBox" class="flex items-center gap-2"><i class="fi fi-rr-briefcase"></i> <span id="valCompany"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Tabs -->
+            <div class="flex gap-8 border-b border-[#30363d] px-2 overflow-x-auto no-scrollbar">
+                <button onclick="switchTab('repos')" id="tab-repos" class="tab-btn active py-4 font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <i class="fi fi-rr-folder"></i> Repositories <span id="badgeRepos" class="bg-[#30363d] text-[10px] px-2 py-0.5 rounded-full text-gray-300">0</span>
+                </button>
+                <button onclick="switchTab('stars')" id="tab-stars" class="tab-btn py-4 font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <i class="fi fi-rr-star"></i> Starred
+                </button>
+                <button onclick="switchTab('packages')" id="tab-packages" class="tab-btn py-4 font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <i class="fi fi-rr-box"></i> Packages
+                </button>
+                <button onclick="switchTab('projects')" id="tab-projects" class="tab-btn py-4 font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <i class="fi fi-rr-layers"></i> Projects
+                </button>
+            </div>
+
+            <!-- Views Container -->
+            <div id="tabContent" class="min-h-[400px]">
+                <div id="reposView" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <div id="starsView" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <div id="packagesView" class="hidden text-center py-24 glass-card rounded-3xl">
+                    <i class="fi fi-rr-box-open text-6xl mb-4 text-gray-700"></i>
+                    <p class="text-gray-500 font-medium">No public registry packages found.</p>
+                </div>
+                <div id="projectsView" class="hidden text-center py-24 glass-card rounded-3xl">
+                    <i class="fi fi-rr-layout-fluid text-6xl mb-4 text-gray-700"></i>
+                    <p class="text-gray-500 font-medium">This user has no active public projects.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const loadingUI = document.getElementById('loadingUI');
+        const content = document.getElementById('profileContent');
+
+        async function fetchProfile() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) return;
+
+            // Reset and Loading
+            loadingUI.classList.remove('hidden');
+            content.classList.add('hidden');
+
+            try {
+                // Fetch User, Repos (up to 100), and Starred
+                const [uRes, rRes, sRes] = await Promise.all([
+                    fetch(`https://api.github.com/users/${username}`),
+                    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`),
+                    fetch(`https://api.github.com/users/${username}/starred?per_page=100`)
+                ]);
+
+                if (!uRes.ok) {
+                    window.location.href = '404.html';
+                    return;
+                }
+
+                const user = await uRes.json();
+                const repos = await rRes.json();
+                const stars = await sRes.json();
+
+                renderDashboard(user, repos, stars);
+            } catch (err) {
+                console.error("API Error:", err);
+                alert("Could not connect to GitHub. Please check your internet.");
+            } finally {
+                loadingUI.classList.add('hidden');
+            }
+        }
+
+        function renderDashboard(user, repos, stars) {
+            // Header Info
+            document.getElementById('avatar').src = user.avatar_url;
+            document.getElementById('fullName').textContent = user.name || user.login;
+            document.getElementById('loginId').textContent = user.login;
+            document.getElementById('bioText').textContent = user.bio || "No description provided.";
+            
+            // Stats
+            document.getElementById('statFollowers').textContent = user.followers.toLocaleString();
+            document.getElementById('statFollowing').textContent = user.following.toLocaleString();
+            document.getElementById('statStars').textContent = stars.length;
+            document.getElementById('badgeRepos').textContent = user.public_repos;
+
+            // Generate Achievements
+            const achBox = document.getElementById('achievementsList');
+            achBox.innerHTML = '';
+            
+            // Logic-based Achievement Badges
+            if (user.public_repos > 50) achBox.innerHTML += createBadge('Powerhouse', 'fi-rr-bolt');
+            if (user.followers > 500) achBox.innerHTML += createBadge('Star Talent', 'fi-rr-star');
+            if (user.public_gists > 10) achBox.innerHTML += createBadge('Logic Guru', 'fi-rr-microchip');
+            
+            const joinYear = new Date(user.created_at).getFullYear();
+            if (new Date().getFullYear() - joinYear >= 4) {
+                achBox.innerHTML += createBadge('Veteran', 'fi-rr-shield-check');
+            }
+
+            // Meta Info
+            updateMeta('valLocation', user.location, 'locBox');
+            updateMeta('valBlog', user.blog, 'linkBox', true);
+            updateMeta('valCompany', user.company, 'compBox');
+
+            // Render Tab Lists
+            renderCards('reposView', repos);
+            renderCards('starsView', stars);
+
+            content.classList.remove('hidden');
+        }
+
+        function createBadge(text, icon) {
+            return `
+                <div class="achievement-badge flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold text-white uppercase tracking-wider">
+                    <i class="fi ${icon}"></i> ${text}
+                </div>
+            `;
+        }
+
+        function renderCards(containerId, items) {
+            const container = document.getElementById(containerId);
+            if (items.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500">No items found in this section.</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="glass-card repo-card p-5 rounded-2xl transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <a href="${item.html_url}" target="_blank" class="text-base font-bold text-blue-400 group-hover:text-blue-300 transition-colors truncate pr-2">
+                                ${item.name}
+                            </a>
+                            <span class="text-[9px] border border-[#30363d] px-2 py-0.5 rounded-full uppercase text-gray-500 font-bold flex-shrink-0">
+                                ${item.language || 'Code'}
+                            </span>
+                        </div>
+                        <p class="text-xs text-gray-400 line-clamp-2 mb-4 h-8 leading-relaxed">
+                            ${item.description || 'This repository has no description provided by the author.'}
+                        </p>
+                    </div>
+                    <div class="flex gap-4 text-[10px] text-gray-500 font-bold mt-auto pt-2">
+                        <span class="flex items-center gap-1"><i class="fi fi-rr-star"></i> ${item.stargazers_count}</span>
+                        <span class="flex items-center gap-1"><i class="fi fi-rr-git-fork"></i> ${item.forks_count}</span>
+                        <span class="ml-auto opacity-50"><i class="fi fi-rr-calendar"></i> ${new Date(item.updated_at).getFullYear()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(tab) {
+            const tabs = ['repos', 'stars', 'packages', 'projects'];
+            tabs.forEach(t => {
+                document.getElementById(`${t}View`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('active');
+            });
+            document.getElementById(`${tab}View`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).classList.add('active');
+        }
+
+        function updateMeta(id, value, boxId, isLink = false) {
+            const el = document.getElementById(id);
+            const box = document.getElementById(boxId);
+            if (value && value !== "") {
+                if (isLink) { 
+                    el.href = value.startsWith('http') ? value : `https://${value}`; 
+                    el.textContent = value.replace(/(^\w+:|^)\/\//, ''); 
+                } else { 
+                    el.textContent = value; 
+                }
+                box.classList.remove('hidden');
+                box.classList.add('flex');
+            } else { 
+                box.classList.add('hidden'); 
+            }
+        }
+    </script>
+</body>
+</html>
