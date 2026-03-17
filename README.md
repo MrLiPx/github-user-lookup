@@ -14,7 +14,7 @@ A lightweight, responsive web application that uses the GitHub REST API to fetch
 
 ## **How to Use**
 
-1. Open https://mrlipx.github.io/github-user-lookup/ in any modern web browser.  
+1. Open https://mrlipx.github.io/github-user-lookup in any modern web browser.  
 2. Enter a GitHub username (e.g., octocat or facebook) in the search bar.  
 3. Press **Enter** or click **Search**.
 
