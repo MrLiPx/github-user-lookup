@@ -3,471 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub User Insights | Professional Profile Analytics</title>
+    <title>GitHub Insights | Professional Developer Analytics</title>
     
     <!-- SEO & SSO Meta Tags -->
-    <meta name="description" content="Explore detailed GitHub profile analytics, repositories, and achievements. A clean, professional way to view developer data.">
-    <meta name="keywords" content="GitHub, Profile, Analytics, Developer, Repositories, Stars">
-    <meta name="author" content="GitHub User Info">
+    <meta name="description" content="Discover professional GitHub profile analytics. Explore repositories, contributions, and developer achievements with a premium interface.">
+    <meta name="keywords" content="GitHub, Profile, Analytics, Developer, Repositories, Tech Stack">
+    <meta name="author" content="GitHub Insights Team">
+    <link rel="canonical" href="https://your-domain.com/">
     
-    <!-- Open Graph / Social Media -->
+    <!-- Open Graph / Social Media (SSO) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="GitHub User Insights Dashboard">
-    <meta property="og:description" content="Analyze GitHub profiles with a premium, high-performance interface.">
+    <meta property="og:site_name" content="GitHub Insights">
+    <meta property="og:title" content="GitHub Developer Insights Dashboard">
+    <meta property="og:description" content="A high-performance dashboard for analyzing GitHub activity and developer profiles.">
     <meta property="og:image" content="/assets/logo.png">
     <meta property="og:image:width" content="128">
     <meta property="og:image:height" content="128">
     
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="GitHub User Insights">
-    <meta name="twitter:description" content="Clean developer analytics for GitHub profiles.">
-    <meta name="twitter:image" content="/assets/logo.png">
-
     <!-- Icons & Fonts -->
     <link rel="icon" type="image/x-icon" href="https://github.com/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-brands/css/uicons-brands.css'>
     
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --gh-bg: #0d1117;
-            --gh-card: #161b22;
-            --gh-border: #30363d;
-            --gh-blue: #58a6ff;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--gh-bg);
-            color: #c9d1d9;
-            scroll-behavior: smooth;
-        }
-
-        .glass-card {
-            background: rgba(22, 27, 34, 0.8);
-            border: 1px solid var(--gh-border);
-            backdrop-filter: blur(16px);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .glass-card:hover {
-            border-color: #444c56;
-        }
-
-        .repo-card {
-            background: var(--gh-card);
-            border: 1px solid var(--gh-border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .repo-card:hover {
-            transform: translateY(-4px);
-            background: #1c2128;
-            border-color: var(--gh-blue);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, #161b22 25%, #21262d 50%, #161b22 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite linear;
-        }
-
-        @keyframes skeleton-loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        .tab-btn {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .tab-btn.active {
-            color: var(--gh-blue);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--gh-blue);
-            border-radius: 2px;
-        }
-
-        .achievement-badge {
-            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
-            box-shadow: 0 2px 8px rgba(46, 160, 67, 0.3);
-        }
-
-        input::placeholder { color: #484f58; }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--gh-bg); }
-        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444c56; }
-    </style>
+    <!-- External Assets -->
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="/assets/app.js" defer></script>
 </head>
-<body class="min-h-screen pb-20">
+<body class="min-h-screen">
 
-    <!-- Header Navigation -->
-    <nav class="sticky top-0 z-50 glass-card border-x-0 border-t-0 py-4 px-6 mb-8">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
-            <div class="flex items-center gap-4 cursor-pointer" onclick="window.location.href='/'">
-                <div class="p-2 bg-white/5 rounded-xl border border-white/10">
+    <!-- Premium Navigation -->
+    <nav class="sticky top-0 z-50 glass-nav py-4 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity" onclick="location.reload()">
+                <div class="brand-icon-wrapper">
                     <i class="fi fi-brands-github text-white text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-white leading-none">Insights</h1>
-                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Dashboard v2.0</span>
+                    <h1 class="text-xl font-bold text-white tracking-tight">Insights</h1>
+                    <div class="flex items-center gap-2">
+                        <span class="status-dot"></span>
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Enterprise API v2</span>
+                    </div>
                 </div>
             </div>
             
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="relative w-full md:w-96 group">
-                    <i class="fi fi-rr-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-400 transition-colors"></i>
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="search-container group">
+                    <i class="fi fi-rr-search search-icon"></i>
                     <input 
                         type="text" 
                         id="usernameInput" 
-                        placeholder="Search GitHub username..." 
-                        class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-[#0d1117] border border-[#30363d] focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 text-sm transition-all"
-                        onkeypress="if(event.key === 'Enter') handleSearch()"
+                        placeholder="Search developer handle..." 
+                        class="search-input"
+                        autocomplete="off"
                     >
-                    <div class="absolute right-3 top-1/2 -translate-y-1/2 hidden md:flex gap-1">
-                        <kbd class="px-1.5 py-0.5 rounded border border-[#30363d] text-[10px] text-gray-500 bg-[#161b22]">ENTER</kbd>
+                    <div class="search-kbd">
+                        <kbd>⌘</kbd><kbd>K</kbd>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="max-w-6xl mx-auto px-4 lg:px-6">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 mt-8">
         
         <!-- Error Feedback Area -->
-        <div id="errorContainer" class="hidden mb-8 animate-in fade-in duration-300">
-            <div id="rateLimitAlert" class="hidden p-5 bg-orange-950/20 border border-orange-500/30 rounded-2xl flex flex-col sm:flex-row gap-4 items-center text-orange-400">
-                <div class="p-3 bg-orange-500/10 rounded-full"><i class="fi fi-rr-hourglass-end text-xl"></i></div>
-                <div class="flex-1 text-center sm:text-left">
-                    <h4 class="font-bold">API Rate Limit Exceeded</h4>
-                    <p class="text-xs opacity-80">GitHub limits unauthenticated requests. Wait a few minutes or switch networks.</p>
-                </div>
-                <button onclick="handleSearch()" class="px-5 py-2 bg-orange-500/20 hover:bg-orange-500/40 rounded-xl text-xs font-bold transition-all">RETRY NOW</button>
-            </div>
+        <div id="errorContainer" class="hidden mb-8 space-y-4 animate-slide-up">
+            <!-- Dynamically populated by app.js -->
+        </div>
 
-            <div id="notFoundAlert" class="hidden p-5 bg-red-950/20 border border-red-500/30 rounded-2xl flex items-center gap-4 text-red-400">
-                <div class="p-3 bg-red-500/10 rounded-full"><i class="fi fi-rr-exclamation text-xl"></i></div>
-                <div>
-                    <h4 class="font-bold">User Not Found</h4>
-                    <p class="text-xs opacity-80">We couldn't find a GitHub profile with that name.</p>
+        <!-- Professional Skeleton State -->
+        <div id="loadingUI" class="hidden space-y-8 animate-pulse">
+            <div class="glass-card rounded-[2.5rem] p-10 flex flex-col md:flex-row gap-10">
+                <div class="w-44 h-44 rounded-3xl skeleton"></div>
+                <div class="flex-1 space-y-6">
+                    <div class="h-12 w-64 skeleton rounded-2xl"></div>
+                    <div class="h-6 w-full skeleton rounded-xl"></div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="h-20 skeleton rounded-2xl"></div>
+                        <div class="h-20 skeleton rounded-2xl"></div>
+                        <div class="h-20 skeleton rounded-2xl"></div>
+                        <div class="h-20 skeleton rounded-2xl"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Skeleton Loading State -->
-        <div id="loadingUI" class="hidden space-y-8">
-            <div class="glass-card rounded-3xl p-8 flex flex-col md:flex-row gap-8">
-                <div class="w-36 h-36 rounded-3xl skeleton"></div>
-                <div class="flex-1 space-y-6 pt-2">
-                    <div class="h-10 w-64 skeleton rounded-xl"></div>
-                    <div class="h-4 w-full skeleton rounded-lg"></div>
-                    <div class="grid grid-cols-4 gap-4"><div class="h-16 skeleton rounded-2xl"></div><div class="h-16 skeleton rounded-2xl"></div><div class="h-16 skeleton rounded-2xl"></div><div class="h-16 skeleton rounded-2xl"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dashboard Content -->
-        <main id="profileContent" class="hidden space-y-10">
-            <!-- Profile Hero Section -->
-            <section class="glass-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-                <div class="flex flex-col md:flex-row gap-10 items-center md:items-start relative z-10">
-                    <div class="relative group">
-                        <img id="avatar" src="" class="w-44 h-44 rounded-[2rem] border-4 border-[#30363d] shadow-2xl transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute -bottom-3 -right-3 p-2 bg-blue-600 rounded-2xl border-4 border-[#0d1117] shadow-xl">
-                            <i class="fi fi-brands-github text-white text-xl"></i>
+        <!-- Main Dynamic Dashboard -->
+        <main id="profileContent" class="hidden space-y-12 pb-24">
+            
+            <!-- Hero Identity Profile -->
+            <section class="hero-card">
+                <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
+                    <div class="avatar-wrapper group">
+                        <img id="avatar" src="" alt="User Avatar" class="avatar-img">
+                        <div class="avatar-badge">
+                            <i class="fi fi-brands-github"></i>
                         </div>
                     </div>
 
-                    <div class="flex-1 text-center md:text-left">
-                        <div class="flex flex-col md:flex-row md:items-center gap-4 mb-3">
-                            <h2 id="fullName" class="text-4xl font-extrabold text-white tracking-tight"></h2>
-                            <div id="achievementsList" class="flex flex-wrap justify-center md:justify-start gap-2"></div>
+                    <div class="flex-1 text-center lg:text-left">
+                        <div class="flex flex-col lg:flex-row lg:items-center gap-5 mb-4">
+                            <h2 id="fullName" class="text-5xl font-extrabold text-white tracking-tighter"></h2>
+                            <div id="achievementsList" class="flex flex-wrap justify-center lg:justify-start gap-2"></div>
                         </div>
-                        <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
-                            <span class="text-blue-400 font-bold px-3 py-1 bg-blue-500/10 rounded-lg text-sm flex items-center gap-2">
+                        
+                        <div class="flex items-center justify-center lg:justify-start gap-4 mb-8">
+                            <span class="handle-tag">
                                 <i class="fi fi-rr-at"></i><span id="loginId"></span>
                             </span>
+                            <span id="hireableStatus" class="hidden px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black rounded-full border border-emerald-500/20">HIREABLE</span>
                         </div>
-                        <p id="bioText" class="text-gray-400 text-lg mb-8 max-w-3xl leading-relaxed font-medium italic"></p>
                         
-                        <!-- Core Stats Grid -->
-                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-                            <div class="p-5 bg-white/5 border border-white/5 rounded-[1.5rem] text-center md:text-left">
-                                <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1 block">Followers</span>
-                                <span id="statFollowers" class="text-2xl font-black text-white">0</span>
+                        <p id="bioText" class="text-gray-400 text-xl mb-10 max-w-4xl leading-relaxed font-medium"></p>
+                        
+                        <!-- Analytical Stats Grid -->
+                        <div class="grid grid-cols-2 xl:grid-cols-4 gap-5 mb-12">
+                            <div class="stat-card">
+                                <span class="stat-label">Network Followers</span>
+                                <span id="statFollowers" class="stat-value">0</span>
                             </div>
-                            <div class="p-5 bg-white/5 border border-white/5 rounded-[1.5rem] text-center md:text-left">
-                                <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1 block">Following</span>
-                                <span id="statFollowing" class="text-2xl font-black text-white">0</span>
+                            <div class="stat-card">
+                                <span class="stat-label">Network Following</span>
+                                <span id="statFollowing" class="stat-value">0</span>
                             </div>
-                            <div class="p-5 bg-white/5 border border-white/5 rounded-[1.5rem] text-center md:text-left">
-                                <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1 block">Repos</span>
-                                <span id="statRepos" class="text-2xl font-black text-white">0</span>
+                            <div class="stat-card">
+                                <span class="stat-label">Public Repos</span>
+                                <span id="statRepos" class="stat-value">0</span>
                             </div>
-                            <div class="p-5 bg-white/5 border border-white/5 rounded-[1.5rem] text-center md:text-left">
-                                <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1 block">Gists</span>
-                                <span id="statGists" class="text-2xl font-black text-white">0</span>
+                            <div class="stat-card">
+                                <span class="stat-label">Code Gists</span>
+                                <span id="statGists" class="stat-value">0</span>
                             </div>
                         </div>
 
-                        <!-- Meta Info -->
-                        <div class="flex flex-wrap gap-6 text-sm text-gray-400 justify-center md:justify-start pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-2.5"><i class="fi fi-rr-calendar text-blue-500"></i> Joined <span id="valJoined" class="text-gray-300 font-bold"></span></div>
-                            <div id="locBox" class="flex items-center gap-2.5"><i class="fi fi-rr-marker text-red-500"></i> <span id="valLocation" class="text-gray-300 font-bold"></span></div>
-                            <div id="linkBox" class="flex items-center gap-2.5"><i class="fi fi-rr-link text-emerald-500"></i> <a id="valBlog" target="_blank" class="text-gray-300 font-bold hover:text-blue-400 transition-colors underline decoration-blue-500/30"></a></div>
-                            <div id="compBox" class="flex items-center gap-2.5"><i class="fi fi-rr-briefcase text-orange-500"></i> <span id="valCompany" class="text-gray-300 font-bold"></span></div>
+                        <!-- Professional Metadata -->
+                        <div class="meta-footer">
+                            <div class="meta-item"><i class="fi fi-rr-calendar text-blue-500"></i> <span id="valJoined"></span></div>
+                            <div id="locBox" class="meta-item"><i class="fi fi-rr-marker text-rose-500"></i> <span id="valLocation"></span></div>
+                            <div id="linkBox" class="meta-item"><i class="fi fi-rr-link text-emerald-500"></i> <a id="valBlog" target="_blank"></a></div>
+                            <div id="compBox" class="meta-item"><i class="fi fi-rr-briefcase text-amber-500"></i> <span id="valCompany"></span></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Interactive Tabs -->
-            <div class="flex gap-10 border-b border-white/5 px-4 overflow-x-auto no-scrollbar">
-                <a href="#repos" id="tab-repos" class="tab-btn py-5 font-bold text-sm flex items-center gap-3 uppercase tracking-widest">
-                    <i class="fi fi-rr-folder"></i> Repositories
-                </a>
-                <a href="#stars" id="tab-stars" class="tab-btn py-5 font-bold text-sm flex items-center gap-3 uppercase tracking-widest">
-                    <i class="fi fi-rr-star"></i> Starred
-                </a>
+            <!-- Navigation Tabs -->
+            <div class="tabs-nav-container">
+                <div class="flex gap-12 overflow-x-auto no-scrollbar">
+                    <a href="#repos" id="tab-repos" class="tab-link active">
+                        <i class="fi fi-rr-layers"></i> Repositories
+                    </a>
+                    <a href="#stars" id="tab-stars" class="tab-link">
+                        <i class="fi fi-rr-star"></i> Curated Stars
+                    </a>
+                </div>
             </div>
 
-            <!-- Views -->
-            <div id="reposView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-bottom-5 duration-500"></div>
+            <!-- Content Grids -->
+            <div id="reposView" class="view-grid active"></div>
             
-            <div id="starsView" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-bottom-5 duration-500">
-                <div id="starsLoading" class="col-span-full py-20 flex flex-col items-center gap-6 text-gray-500">
-                    <div class="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="font-bold uppercase tracking-widest text-xs">Accessing API Records...</p>
+            <div id="starsView" class="view-grid">
+                <div id="starsLoading" class="col-span-full py-24 flex flex-col items-center gap-6">
+                    <div class="loader-spinner"></div>
+                    <p class="text-xs font-black text-gray-500 uppercase tracking-[0.2em]">Synchronizing Star Database</p>
                 </div>
                 <div id="starsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 col-span-full"></div>
             </div>
         </main>
     </div>
 
-    <script>
-        const loadingUI = document.getElementById('loadingUI');
-        const content = document.getElementById('profileContent');
-        const errorContainer = document.getElementById('errorContainer');
-        const rateLimitAlert = document.getElementById('rateLimitAlert');
-        const notFoundAlert = document.getElementById('notFoundAlert');
-
-        let currentUsername = "";
-        let cachedStars = new Map();
-
-        const headers = {
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28"
-        };
-
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            const username = params.get('usn') || params.get('username') || params.get('info');
-            
-            if (username) {
-                document.getElementById('usernameInput').value = username;
-                if (!window.location.hash) window.location.hash = 'repos';
-                fetchProfile(username);
-            }
-            handleHashChange();
-        };
-
-        window.addEventListener('hashchange', handleHashChange);
-
-        function handleHashChange() {
-            const hash = window.location.hash || '#repos';
-            const tab = hash.substring(1);
-            switchTab(tab);
-            
-            if (tab === 'stars' && currentUsername && !cachedStars.has(currentUsername)) {
-                fetchStars(currentUsername);
-            }
-        }
-
-        function handleSearch() {
-            const username = document.getElementById('usernameInput').value.trim();
-            if (username) {
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('usn', username);
-                newUrl.hash = 'repos';
-                window.history.pushState({}, '', newUrl);
-                fetchProfile(username);
-            }
-        }
-
-        async function fetchProfile(username) {
-            const cacheKey = `gh_v2_${username.toLowerCase()}`;
-            const cachedData = sessionStorage.getItem(cacheKey);
-            
-            if (cachedData) {
-                const data = JSON.parse(cachedData);
-                currentUsername = data.user.login;
-                renderDashboard(data.user, data.repos);
-                return;
-            }
-
-            hideErrors();
-            loadingUI.classList.remove('hidden');
-            content.classList.add('hidden');
-            cachedStars.clear();
-
-            try {
-                const uRes = await fetch(`https://api.github.com/users/${username}`, { headers });
-                if (!uRes.ok) {
-                    handleErrorResponse(uRes.status);
-                    return;
-                }
-
-                const user = await uRes.json();
-                const rRes = await fetch(`https://api.github.com/users/${user.login}/repos?sort=updated&per_page=48`, { headers });
-                const repos = rRes.ok ? await rRes.json() : [];
-
-                sessionStorage.setItem(cacheKey, JSON.stringify({ user, repos }));
-                currentUsername = user.login;
-                renderDashboard(user, repos);
-            } catch (err) {
-                handleErrorResponse(0);
-            } finally {
-                loadingUI.classList.add('hidden');
-            }
-        }
-
-        async function fetchStars(username) {
-            const grid = document.getElementById('starsGrid');
-            const loader = document.getElementById('starsLoading');
-            grid.innerHTML = '';
-            loader.classList.remove('hidden');
-
-            try {
-                const res = await fetch(`https://api.github.com/users/${username}/starred?per_page=30`, { headers });
-                if (res.ok) {
-                    const stars = await res.json();
-                    cachedStars.set(username, stars);
-                    renderCards('starsGrid', stars);
-                }
-            } catch (e) {
-                grid.innerHTML = `<p class="col-span-full text-center text-red-400">Error loading stars.</p>`;
-            } finally {
-                loader.classList.add('hidden');
-            }
-        }
-
-        function renderDashboard(user, repos) {
-            document.getElementById('avatar').src = user.avatar_url;
-            document.getElementById('fullName').textContent = user.name || user.login;
-            document.getElementById('loginId').textContent = user.login;
-            document.getElementById('bioText').textContent = user.bio || "No professional summary provided.";
-            document.getElementById('statFollowers').textContent = user.followers.toLocaleString();
-            document.getElementById('statFollowing').textContent = user.following.toLocaleString();
-            document.getElementById('statRepos').textContent = user.public_repos.toLocaleString();
-            document.getElementById('statGists').textContent = user.public_gists.toLocaleString();
-
-            const joinedDate = new Date(user.created_at).toLocaleDateString(undefined, { 
-                year: 'numeric', month: 'long', day: 'numeric' 
-            });
-            document.getElementById('valJoined').textContent = joinedDate;
-
-            const achBox = document.getElementById('achievementsList');
-            achBox.innerHTML = '';
-            if (user.public_repos > 50) achBox.innerHTML += createBadge('Power User', 'fi-rr-bolt');
-            if (user.followers > 500) achBox.innerHTML += createBadge('Legendary', 'fi-rr-star');
-            if (user.site_admin) achBox.innerHTML += createBadge('Staff', 'fi-rr-shield-check');
-            
-            updateMeta('valLocation', user.location, 'locBox');
-            updateMeta('valBlog', user.blog, 'linkBox', true);
-            updateMeta('valCompany', user.company, 'compBox');
-
-            renderCards('reposView', repos);
-            content.classList.remove('hidden');
-            
-            if (window.location.hash === '#stars' && !cachedStars.has(user.login)) {
-                fetchStars(user.login);
-            } else if (cachedStars.has(user.login)) {
-                renderCards('starsGrid', cachedStars.get(user.login));
-            }
-        }
-
-        function createBadge(text, icon) {
-            return `<div class="achievement-badge flex items-center gap-2 px-4 py-1.5 rounded-xl text-[10px] font-black text-white uppercase tracking-wider"><i class="fi ${icon}"></i> ${text}</div>`;
-        }
-
-        function renderCards(containerId, items) {
-            const container = document.getElementById(containerId);
-            if (!items || items.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-16 text-center text-gray-500 font-bold uppercase tracking-widest text-xs opacity-50">Empty Data Set</div>`;
-                return;
-            }
-            container.innerHTML = items.map(item => `
-                <div class="repo-card p-6 rounded-[1.75rem] flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-start justify-between gap-4 mb-3">
-                            <a href="${item.html_url}" target="_blank" class="text-base font-bold text-white hover:text-blue-400 transition-colors line-clamp-1">${item.name}</a>
-                            <span class="shrink-0 px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black uppercase text-gray-400">${item.language || 'DATA'}</span>
-                        </div>
-                        <p class="text-xs text-gray-400 line-clamp-3 mb-6 leading-relaxed min-h-[3rem]">${item.description || 'No descriptive metadata provided for this repository.'}</p>
-                    </div>
-                    <div class="flex items-center gap-6 text-[10px] font-black text-gray-500 border-t border-white/5 pt-4">
-                        <span class="flex items-center gap-2"><i class="fi fi-rr-star text-yellow-500/80"></i> ${item.stargazers_count}</span>
-                        <span class="flex items-center gap-2"><i class="fi fi-rr-git-fork text-blue-500/80"></i> ${item.forks_count}</span>
-                        ${item.private ? '<span class="ml-auto text-red-400">PRIVATE</span>' : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function switchTab(tab) {
-            const isRepos = tab === 'repos' || !tab;
-            const isStars = tab === 'stars';
-            document.getElementById('reposView').classList.toggle('hidden', !isRepos);
-            document.getElementById('starsView').classList.toggle('hidden', !isStars);
-            document.getElementById('tab-repos').classList.toggle('active', isRepos);
-            document.getElementById('tab-stars').classList.toggle('active', isStars);
-        }
-
-        function updateMeta(id, value, boxId, isLink = false) {
-            const el = document.getElementById(id);
-            const box = document.getElementById(boxId);
-            if (value) {
-                if (isLink) { 
-                    el.href = value.startsWith('http') ? value : `https://${value}`; 
-                    el.textContent = value.replace(/^https?:\/\//,'').replace(/\/$/,''); 
-                } else { 
-                    el.textContent = value; 
-                }
-                box.classList.remove('hidden');
-                box.classList.add('flex');
-            } else { 
-                box.classList.add('hidden'); 
-            }
-        }
-
-        function hideErrors() {
-            errorContainer.classList.add('hidden');
-            rateLimitAlert.classList.add('hidden');
-            notFoundAlert.classList.add('hidden');
-        }
-
-        function handleErrorResponse(status) {
-            errorContainer.classList.remove('hidden');
-            if (status === 404) notFoundAlert.classList.remove('hidden');
-            else if (status === 403) rateLimitAlert.classList.remove('hidden');
-            loadingUI.classList.add('hidden');
-        }
-    </script>
+    <!-- Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-20">
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-900 rounded-full blur-[150px]"></div>
+    </div>
 </body>
 </html>
