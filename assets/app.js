@@ -59,10 +59,13 @@ function handleSearch() {
     const query = UI.input.value.trim();
     if (!query) return;
 
+    // Fix for GitHub Pages subfolder hosting
     const url = new URL(window.location.href);
     url.searchParams.set('usn', query);
     url.hash = 'repos';
-    window.history.pushState({}, '', url);
+    
+    // Using pushState with the updated search params and hash
+    window.history.pushState({}, '', url.pathname + url.search + url.hash);
     fetchProfile(query);
 }
 
