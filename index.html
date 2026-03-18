@@ -4,39 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ── Primary SEO ── -->
+  <!-- ── SEO ── -->
   <title>GitHub User Search — Developer Profile Explorer</title>
-  <meta name="description" content="Search any GitHub user and instantly explore their repositories, stars, followers, and developer stats in a clean, fast interface.">
-  <meta name="keywords" content="GitHub, profile, lookup, developer, repositories, stats, analytics, open source">
+  <meta name="description" content="Search any GitHub user and instantly explore their repositories, stars, followers, and developer stats.">
+  <meta name="keywords" content="GitHub, user, search, developer, profile, repositories, stats">
   <meta name="author" content="MrLiPx">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://mrlipx.github.io/github-user-search/">
 
   <!-- ── Open Graph ── -->
-  <meta property="og:type"        content="website">
-  <meta property="og:site_name"   content="GitHub User Search">
-  <meta property="og:locale"      content="en_US">
-  <meta property="og:title"       content="GitHub User Search — Developer Profile Explorer">
-  <meta property="og:description" content="Search any GitHub user and instantly explore their repositories, stars, followers, and developer stats.">
-  <meta property="og:url"         content="https://mrlipx.github.io/github-user-search/">
-  <meta property="og:image"       content="https://mrlipx.github.io/github-user-search/assets/logo.png">
+  <meta property="og:type"         content="website">
+  <meta property="og:site_name"    content="GitHub User Search">
+  <meta property="og:locale"       content="en_US">
+  <meta property="og:title"        content="GitHub User Search — Developer Profile Explorer">
+  <meta property="og:description"  content="Search any GitHub user and explore their repositories, stars, and developer stats.">
+  <meta property="og:url"          content="https://mrlipx.github.io/github-user-search/">
+  <meta property="og:image"        content="https://mrlipx.github.io/github-user-search/assets/logo.png">
   <meta property="og:image:width"  content="128">
   <meta property="og:image:height" content="128">
   <meta property="og:image:alt"    content="GitHub User Search logo">
+  <meta property="og:image:type"   content="image/png">
 
   <!-- ── Twitter / X ── -->
   <meta name="twitter:card"        content="summary">
   <meta name="twitter:site"        content="@MrLiPx">
   <meta name="twitter:creator"     content="@MrLiPx">
   <meta name="twitter:title"       content="GitHub User Search — Developer Profile Explorer">
-  <meta name="twitter:description" content="Search any GitHub user and instantly explore their repositories, stars, followers, and developer stats.">
+  <meta name="twitter:description" content="Search any GitHub user and explore their repositories, stars, and developer stats.">
   <meta name="twitter:image"       content="https://mrlipx.github.io/github-user-search/assets/logo.png">
+  <meta name="twitter:image:alt"   content="GitHub User Search logo">
 
   <!-- ── Theme ── -->
   <meta name="theme-color" content="#4d9ef7">
   <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="GitHub User Search">
 
-  <!-- ── Structured Data ── -->
+  <!-- ── Structured data ── -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -51,23 +54,26 @@
   </script>
 
   <!-- ── Favicon ── -->
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <link rel="apple-touch-icon"      href="assets/logo.png">
+  <link rel="icon"             type="image/png" href="assets/logo.png">
+  <link rel="shortcut icon"                     href="assets/logo.png">
+  <link rel="apple-touch-icon"                  href="assets/logo.png">
 
   <!-- ── Fonts ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- ── Icons ── -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-brands/css/uicons-brands.css">
 
-  <link rel="stylesheet" href="assets/style.css">
+  <!-- ── Styles (build: IDewhVtoy4) ── -->
+  <link rel="stylesheet" href="assets/vars.css?v=IDewhVtoy4">
+  <link rel="stylesheet" href="assets/base.css?v=IDewhVtoy4">
+  <link rel="stylesheet" href="assets/style.css?v=IDewhVtoy4">
 </head>
 <body>
 
-  <!-- ══ Background ══ -->
   <div class="bg-layer" aria-hidden="true">
     <div class="bg-grid"></div>
     <div class="bg-orb bg-orb-1"></div>
@@ -77,21 +83,24 @@
   <!-- ══ Nav ══ -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a class="nav-brand" href="." aria-label="GitHub User Search home" onclick="resetToLanding(); return false;">
+
+      <button class="nav-brand" onclick="resetToLanding()" aria-label="GitHub User Search — go to home">
         <div class="nav-logo" aria-hidden="true">
           <i class="fi fi-brands-github"></i>
         </div>
         <div class="nav-brand-text">
           <span class="nav-title">User Search</span>
-          <span class="nav-sub"><span class="status-dot" aria-hidden="true"></span>GitHub API</span>
+          <span class="nav-meta">
+            <span class="status-dot" aria-hidden="true"></span>GitHub API
+          </span>
         </div>
-      </a>
+      </button>
 
-      <div class="search-wrap" role="search">
-        <div class="search-box" id="searchBox">
+      <div class="search-wrap" role="search" aria-label="Search GitHub users">
+        <div class="search-field">
           <i class="fi fi-rr-search search-icon" aria-hidden="true"></i>
           <input
-            type="text"
+            type="search"
             id="usernameInput"
             class="search-input"
             placeholder="Search a GitHub username…"
@@ -100,29 +109,31 @@
             autocapitalize="none"
             spellcheck="false"
             aria-label="GitHub username"
+            enterkeyhint="search"
           >
-          <kbd class="search-kbd" aria-label="Keyboard shortcut: Ctrl+K or Cmd+K" title="Ctrl K">⌘K</kbd>
+          <kbd class="search-kbd" aria-hidden="true">⌘K</kbd>
         </div>
         <button class="search-btn" id="searchBtn" aria-label="Search">
-          <i class="fi fi-rr-arrow-right" aria-hidden="true"></i>
+          <i class="fi fi-rr-angle-small-right" aria-hidden="true"></i>
         </button>
       </div>
+
     </div>
   </nav>
 
   <!-- ══ Page shell ══ -->
   <div class="page-shell">
 
-    <!-- Landing state -->
+    <!-- Landing -->
     <div id="landingUI" class="landing">
       <div class="landing-inner">
         <div class="landing-icon" aria-hidden="true">
           <i class="fi fi-brands-github"></i>
         </div>
-        <h2 class="landing-title">Explore GitHub Profiles</h2>
-        <p class="landing-sub">Type any GitHub username in the search bar to view their repositories, stars, followers, and more.</p>
-        <div class="landing-examples" aria-label="Example searches">
-          <span class="landing-label">Try:</span>
+        <h1 class="landing-title">Search GitHub Profiles</h1>
+        <p class="landing-sub">Enter any GitHub username to view their profile, repositories, starred projects, and contributor stats.</p>
+        <div class="example-row" aria-label="Example searches">
+          <span class="example-label">Try:</span>
           <button class="example-chip" data-user="torvalds">torvalds</button>
           <button class="example-chip" data-user="sindresorhus">sindresorhus</button>
           <button class="example-chip" data-user="MrLiPx">MrLiPx</button>
@@ -131,36 +142,37 @@
     </div>
 
     <!-- Loading skeleton -->
-    <div id="loadingUI" class="hidden" aria-live="polite" aria-busy="true">
-      <div class="skeleton-hero">
-        <div class="skel skel-avatar"></div>
-        <div class="skel-body">
-          <div class="skel skel-name"></div>
-          <div class="skel skel-bio"></div>
-          <div class="skel-stats">
-            <div class="skel skel-stat"></div>
-            <div class="skel skel-stat"></div>
-            <div class="skel skel-stat"></div>
-            <div class="skel skel-stat"></div>
+    <div id="loadingUI" class="hidden" aria-live="polite" aria-busy="true" aria-label="Loading profile">
+      <div class="sk-hero">
+        <div class="skel sk-avatar"></div>
+        <div class="sk-body">
+          <div class="skel sk-name"></div>
+          <div class="skel sk-bio"></div>
+          <div class="skel sk-bio2"></div>
+          <div class="sk-stats">
+            <div class="skel sk-stat"></div>
+            <div class="skel sk-stat"></div>
+            <div class="skel sk-stat"></div>
+            <div class="skel sk-stat"></div>
           </div>
         </div>
       </div>
-      <div class="skel-grid">
-        <div class="skel skel-card"></div>
-        <div class="skel skel-card"></div>
-        <div class="skel skel-card"></div>
-        <div class="skel skel-card"></div>
-        <div class="skel skel-card"></div>
-        <div class="skel skel-card"></div>
+      <div class="sk-grid">
+        <div class="skel sk-card"></div>
+        <div class="skel sk-card"></div>
+        <div class="skel sk-card"></div>
+        <div class="skel sk-card"></div>
+        <div class="skel sk-card"></div>
+        <div class="skel sk-card"></div>
       </div>
     </div>
 
-    <!-- Error state -->
+    <!-- Error -->
     <div id="errorContainer" class="hidden error-wrap" role="alert" aria-live="assertive">
-      <!-- filled by JS -->
+      <!-- JS populated -->
     </div>
 
-    <!-- Profile content -->
+    <!-- Profile -->
     <main id="profileContent" class="hidden profile-root" aria-live="polite">
 
       <!-- Hero -->
@@ -168,8 +180,10 @@
         <div class="hero-inner">
 
           <div class="avatar-col">
-            <div class="avatar-ring" aria-hidden="true"></div>
-            <img id="avatar" class="avatar-img" src="" alt="GitHub avatar" width="160" height="160" loading="lazy">
+            <div class="avatar-frame">
+              <div class="avatar-ring" aria-hidden="true"></div>
+              <img id="avatar" class="avatar-img" src="" alt="GitHub avatar" width="104" height="104" loading="lazy" decoding="async">
+            </div>
             <span id="hireableStatus" class="hire-badge hidden" aria-label="Open to work">HIREABLE</span>
           </div>
 
@@ -178,7 +192,8 @@
               <div>
                 <h2 id="fullName" class="hero-name"></h2>
                 <a id="loginLink" class="hero-handle" href="" target="_blank" rel="noopener noreferrer">
-                  <i class="fi fi-rr-at" aria-hidden="true"></i><span id="loginId"></span>
+                  <i class="fi fi-rr-at" aria-hidden="true"></i>
+                  <span id="loginId"></span>
                 </a>
               </div>
               <div id="achievementsList" class="badges-row" role="list" aria-label="Achievements"></div>
@@ -186,53 +201,78 @@
 
             <p id="bioText" class="hero-bio"></p>
 
-            <div class="stats-row" role="list" aria-label="Stats">
-              <div class="stat-pill" role="listitem">
+            <div class="stats-grid" role="list" aria-label="Stats">
+              <div class="stat-cell" role="listitem">
+                <div class="stat-icon stat-icon-blue" aria-hidden="true">
+                  <i class="fi fi-rr-users"></i>
+                </div>
                 <span class="stat-num" id="statFollowers">—</span>
                 <span class="stat-lbl">Followers</span>
               </div>
-              <div class="stat-pill" role="listitem">
+              <div class="stat-cell" role="listitem">
+                <div class="stat-icon stat-icon-purple" aria-hidden="true">
+                  <i class="fi fi-rr-user-add"></i>
+                </div>
                 <span class="stat-num" id="statFollowing">—</span>
                 <span class="stat-lbl">Following</span>
               </div>
-              <div class="stat-pill" role="listitem">
+              <div class="stat-cell" role="listitem">
+                <div class="stat-icon stat-icon-green" aria-hidden="true">
+                  <i class="fi fi-rr-folder"></i>
+                </div>
                 <span class="stat-num" id="statRepos">—</span>
                 <span class="stat-lbl">Repos</span>
               </div>
-              <div class="stat-pill" role="listitem">
+              <div class="stat-cell" role="listitem">
+                <div class="stat-icon stat-icon-amber" aria-hidden="true">
+                  <i class="fi fi-rr-file-code"></i>
+                </div>
                 <span class="stat-num" id="statGists">—</span>
                 <span class="stat-lbl">Gists</span>
               </div>
             </div>
 
             <div class="meta-row">
-              <div class="meta-item"><i class="fi fi-rr-calendar" aria-hidden="true"></i><span id="valJoined"></span></div>
-              <div id="locBox"  class="meta-item hidden"><i class="fi fi-rr-marker"    aria-hidden="true"></i><span id="valLocation"></span></div>
-              <div id="compBox" class="meta-item hidden"><i class="fi fi-rr-briefcase"  aria-hidden="true"></i><span id="valCompany"></span></div>
-              <div id="linkBox" class="meta-item hidden"><i class="fi fi-rr-link"       aria-hidden="true"></i><a id="valBlog" target="_blank" rel="noopener noreferrer"></a></div>
+              <div class="meta-item">
+                <i class="fi fi-rr-calendar" aria-hidden="true" style="color:var(--accent)"></i>
+                <span id="valJoined"></span>
+              </div>
+              <div id="locBox" class="meta-item hidden">
+                <i class="fi fi-rr-map-marker" aria-hidden="true" style="color:var(--rose)"></i>
+                <span id="valLocation"></span>
+              </div>
+              <div id="compBox" class="meta-item hidden">
+                <i class="fi fi-rr-briefcase" aria-hidden="true" style="color:var(--amber)"></i>
+                <span id="valCompany"></span>
+              </div>
+              <div id="linkBox" class="meta-item hidden">
+                <i class="fi fi-rr-link" aria-hidden="true" style="color:var(--green)"></i>
+                <a id="valBlog" href="" target="_blank" rel="noopener noreferrer"></a>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
       <!-- Tabs -->
       <div class="tabs-bar" role="tablist" aria-label="Profile sections">
-        <a href="#repos" id="tab-repos" class="tab active" role="tab" aria-selected="true"  aria-controls="reposView">
-          <i class="fi fi-rr-layers"    aria-hidden="true"></i>Repositories
+        <a href="#repos" id="tab-repos" class="tab active" role="tab" aria-selected="true" aria-controls="reposView">
+          <i class="fi fi-rr-layers" aria-hidden="true"></i>Repositories
         </a>
-        <a href="#stars" id="tab-stars" class="tab"        role="tab" aria-selected="false" aria-controls="starsView">
-          <i class="fi fi-rr-star"      aria-hidden="true"></i>Starred
+        <a href="#stars" id="tab-stars" class="tab" role="tab" aria-selected="false" aria-controls="starsView">
+          <i class="fi fi-rr-star" aria-hidden="true"></i>Starred
         </a>
       </div>
 
-      <!-- Repos -->
+      <!-- Repos panel -->
       <div id="reposView" class="view-panel" role="tabpanel" aria-labelledby="tab-repos"></div>
 
-      <!-- Stars -->
+      <!-- Stars panel -->
       <div id="starsView" class="view-panel hidden" role="tabpanel" aria-labelledby="tab-stars">
         <div id="starsLoading" class="panel-loading">
           <div class="spinner" aria-hidden="true"></div>
-          <p class="panel-loading-text">Loading starred repos…</p>
+          <p class="panel-loading-text">Fetching starred repos…</p>
         </div>
         <div id="starsGrid" class="repo-grid"></div>
       </div>
@@ -240,6 +280,6 @@
     </main>
   </div>
 
-  <script src="assets/app.js" defer></script>
+  <script src="assets/app.js?v=IDewhVtoy4" defer></script>
 </body>
 </html>

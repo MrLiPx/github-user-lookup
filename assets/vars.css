@@ -1,0 +1,43 @@
+/*
+ * github-user-search — design tokens
+ * Build: IDewhVtoy4
+ */
+
+:root {
+  /* ── Palette ── */
+  --bg:        #07090f;
+  --surface:   #0d1117;
+  --surface2:  #111820;
+  --surface3:  #161f29;
+  --border:    #1a2130;
+  --border2:   #1f2937;
+  --accent:    #4d9ef7;
+  --accent-hi: #74b5ff;
+  --accent-lo: rgba(77,158,247,.12);
+  --green:     #3fb950;
+  --amber:     #e3b341;
+  --rose:      #f85149;
+  --purple:    #bc8cff;
+  --text:      #e6edf3;
+  --sub:       #8b949e;
+  --muted:     #4a5568;
+
+  /* ── Radii ── */
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r:     14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+
+  /* ── Spacing ── */
+  --gap-xs:  6px;
+  --gap-sm:  12px;
+  --gap-md:  20px;
+  --gap-lg:  32px;
+  --gap-xl:  48px;
+
+  /* ── Layout ── */
+  --nav-h:    60px;
+  --max-w:    1080px;
+  --pad-x:    28px;
+}
